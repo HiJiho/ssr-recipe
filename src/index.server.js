@@ -19,7 +19,7 @@ function createPage(root) {
 			<meta charset="utf-8" />
 			<meta name="viewport" content="width=device-width, initial-scale=1" />
 			<meta name="theme-color" content="#000000" />
-			<link rel="${manifest.files['main.css']}" href="stylesheet" />
+			<link rel="stylesheet" href="${manifest.files['main.css']}" />
 			<title>React App</title>
 		</head>
 		<body>
