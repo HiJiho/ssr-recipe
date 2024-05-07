@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 
+import { Preloader } from '../lib/PreloadContext';
 import Users from '../components/Users';
 import { getUsers } from '../modules/users';
 import { useEffect } from 'react';
@@ -14,7 +15,12 @@ const UsersContainer = () => {
 		dispatch(getUsers());
 	}, [dispatch, users]);
 
-	return <Users users={users} />;
+	return (
+		<>
+			<Users users={users} />
+			<Preloader resolve={() => dispatch(getUsers)} />
+		</>
+	);
 };
 
 export default UsersContainer;
