@@ -1,10 +1,12 @@
-import ReactDOMServer from 'react-dom/server';
-import express from 'express';
-import { StaticRouter } from 'react-router-dom/server';
-
 import App from './App';
-import path from 'path';
+import ReactDOMServer from 'react-dom/server';
+import { StaticRouter } from 'react-router-dom/server';
+import { configureStore } from '@reduxjs/toolkit';
+import express from 'express';
 import fs from 'fs';
+import path from 'path';
+import rootReducer from './modules';
+import { Provider } from 'react-redux';
 
 // asset-manivest.json에서 파일 경로들을 조회
 const manifest = JSON.parse(
@@ -37,10 +39,18 @@ const app = express();
 const serverRender = (req, res, next) => {
 	// 이 함수는 404가 떠야 하는 상황에 404를 띄우지 않고 SSR을 함
 	const context = [];
+	const store = configureStore({
+		reducer: rootReducer,
+		middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
+		devTools: process.env.NODE_ENV !== 'production',
+	});
+
 	const jsx = (
-		<StaticRouter location={req.url} context={context}>
-			<App />
-		</StaticRouter>
+		<Provider store={store}>
+			<StaticRouter location={req.url} context={context}>
+				<App />
+			</StaticRouter>
+		</Provider>
 	);
 	const root = ReactDOMServer.renderToString(jsx); // 렌더링 후,
 	res.send(createPage(root)); // 클라이언트에게 결과물을 응답
