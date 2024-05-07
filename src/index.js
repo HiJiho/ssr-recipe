@@ -9,9 +9,12 @@ import { thunk } from 'redux-thunk';
 import rootReducer from './modules';
 import { Provider } from 'react-redux';
 
+const preloadedState = window.__PRELOADED_STATE__;
+
 const store = configureStore({
 	reducer: rootReducer,
 	middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
+	preloadedState,
 	devTools: process.env.NODE_ENV !== 'production',
 });
 
