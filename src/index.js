@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { configureStore } from '@reduxjs/toolkit';
 import { thunk } from 'redux-thunk';
-import rootReducer from '../modules';
+import rootReducer from './modules';
 import { Provider } from 'react-redux';
 
 const store = configureStore({

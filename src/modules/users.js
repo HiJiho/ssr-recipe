@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { act } from 'react';
 
 // 액션 타입
 const GET_USERS_PENDING = 'users/GET_USERS_PENDING';
