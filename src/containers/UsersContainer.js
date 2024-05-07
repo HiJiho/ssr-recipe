@@ -15,6 +15,7 @@ const UsersContainer = () => {
 		dispatch(getUsers());
 	}, [dispatch, users]);
 
+	// Preloader는 서버 환경에서만 실행됨
 	return (
 		<>
 			<Users users={users} />
