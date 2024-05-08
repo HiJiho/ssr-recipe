@@ -6,17 +6,23 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { configureStore } from '@reduxjs/toolkit';
 import { thunk } from 'redux-thunk';
-import rootReducer from './modules';
+import rootReducer, { rootSaga } from './modules';
 import { Provider } from 'react-redux';
+import createSagaMiddleware from 'redux-saga';
 
-const preloadedState = window.__PRELOADED_STATE__;
+const sagaMiddleware = createSagaMiddleware();
+
+const preloadedState = window.__PRELOADED_STATE__; // 서버에서 렌더링한 리덕스 초기 상태
 
 const store = configureStore({
 	reducer: rootReducer,
-	middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware().concat(thunk, sagaMiddleware),
 	preloadedState,
 	devTools: process.env.NODE_ENV !== 'production',
 });
+
+sagaMiddleware.run(rootSaga);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

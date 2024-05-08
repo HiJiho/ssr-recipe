@@ -42,7 +42,9 @@ const app = express();
 const serverRender = async (req, res, next) => {
 	// 이 함수는 404가 떠야 하는 상황에 404를 띄우지 않고 SSR을 함
 	const context = [];
+
 	const store = configureStore({
+		// 서버에서는 요청이 들어올 때마다 새로운 스토어를 만듬
 		reducer: rootReducer,
 		middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
 		devTools: process.env.NODE_ENV !== 'production',
