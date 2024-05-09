@@ -5,10 +5,11 @@ import express from 'express';
 import ReactDOMServer from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router-dom/server';
+import createSagaMiddleware, { END } from 'redux-saga';
 import { thunk } from 'redux-thunk';
 import App from './App';
 import PreloadContext from './lib/PreloadContext';
-import rootReducer from './modules';
+import rootReducer, { rootSaga } from './modules';
 
 // asset-manivest.json에서 파일 경로들을 조회
 const manifest = JSON.parse(
@@ -41,14 +42,19 @@ const app = express();
 // SSR을 처리할 핸들러 함수
 const serverRender = async (req, res, next) => {
 	// 이 함수는 404가 떠야 하는 상황에 404를 띄우지 않고 SSR을 함
+
 	const context = [];
+	const sagaMiddleware = createSagaMiddleware();
 
 	const store = configureStore({
 		// 서버에서는 요청이 들어올 때마다 새로운 스토어를 만듬
 		reducer: rootReducer,
-		middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
+		middleware: (getDefaultMiddleware) =>
+			getDefaultMiddleware().concat(thunk, sagaMiddleware),
 		devTools: process.env.NODE_ENV !== 'production',
 	});
+
+	const sagaPromise = sagaMiddleware.run(rootSaga).toPromise(); // 루트 사가에서 액션을 끊임없이 모니터링 중 -> 별도의 작업이 없으면 이 Promise는 끝나지 않음
 
 	const preloadContext = {
 		done: false,
@@ -66,7 +72,10 @@ const serverRender = async (req, res, next) => {
 	);
 
 	ReactDOMServer.renderToStaticMarkup(jsx); // renderToStaticMarkup으로 한 번 렌더링
+	store.dispatch(END); // redux-saga의 END 액션을 발생시키면 액션을 모니터링 하는 사가들이 모두 종료됨, 이 시점에 리덕스 스토어에 요청한 데이터가 채워짐
+
 	try {
+		await sagaPromise; // 기존에 진행 중이던 사가들이 모두 끝날 때까지 기다림
 		await Promise.all(preloadContext.promises); // 모든 프로미스를 기다림
 	} catch (e) {
 		return res.status(500);
