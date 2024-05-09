@@ -1,8 +1,8 @@
-import { useDispatch, useSelector } from 'react-redux';
-import User from '../components/User';
-import { useEffect } from 'react';
-import { getUser } from '../modules/users';
-import { Preloader } from '../lib/PreloadContext';
+import { useDispatch, useSelector } from "react-redux";
+import User from "../components/User";
+import { useEffect } from "react";
+import { getUser } from "../modules/users";
+import { Preloader } from "../lib/PreloadContext";
 
 const UserContainer = ({ id }) => {
 	// id: URL 파라미터, 문자열
