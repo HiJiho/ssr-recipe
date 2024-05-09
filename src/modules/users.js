@@ -48,14 +48,15 @@ const getUserById = (id) =>
 // redux-saga를 위한 saga 함수
 function* getUserSaga(action) {
 	try {
-		const response = yield call(getUserById, action.payload);
-		yield put(getUserSuccess(response.data));
+		const response = yield call(getUserById, action.payload); // call: 함수 호출, 결과 기다림
+		yield put(getUserSuccess(response.data)); // put: 액션 디스패치
 	} catch (e) {
 		yield put(getUserFailure(e));
 	}
 }
 
 export function* usersSaga() {
+	// GET_USER액션이 디스패치 될 때마다 getUserSaga를 실행
 	yield takeEvery(GET_USER, getUserSaga);
 }
 

@@ -10,19 +10,19 @@ import rootReducer, { rootSaga } from './modules';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 
-const sagaMiddleware = createSagaMiddleware();
+const sagaMiddleware = createSagaMiddleware(); // saga 미들웨어 생성
 
 const preloadedState = window.__PRELOADED_STATE__; // 서버에서 렌더링한 리덕스 초기 상태
 
 const store = configureStore({
-	reducer: rootReducer,
+	reducer: rootReducer, rootSaga,
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware().concat(thunk, sagaMiddleware),
 	preloadedState,
 	devTools: process.env.NODE_ENV !== 'production',
 });
 
-sagaMiddleware.run(rootSaga);
+sagaMiddleware.run(rootSaga); // saga 미들웨어 실행
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

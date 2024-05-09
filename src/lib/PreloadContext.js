@@ -7,6 +7,7 @@ import { createContext, useContext } from 'react';
  * 그다음에 다시 렌더링하면 데이터가 채워진 상태로 컴포넌트들이 나타남
  */
 
+// Context API로 state 초기 상태 정의
 // 클라이언트 환경: null
 // 서버 환경: { done: false, promises: [] }
 const PreloadContext = createContext(null);
