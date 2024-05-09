@@ -1,7 +1,7 @@
 // 루트 리듀서
 import { combineReducers } from 'redux';
-import users, { usersSaga } from './users';
 import { all } from 'redux-saga/effects';
+import users, { usersSaga } from './users';
 
 export function* rootSaga() {
 	yield all([usersSaga()]);

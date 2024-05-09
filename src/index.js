@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
 import { configureStore } from '@reduxjs/toolkit';
-import { thunk } from 'redux-thunk';
-import rootReducer, { rootSaga } from './modules';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import createSagaMiddleware from 'redux-saga';
+import { thunk } from 'redux-thunk';
+import App from './App';
+import rootReducer, { rootSaga } from './modules';
+import reportWebVitals from './reportWebVitals';
 
 const sagaMiddleware = createSagaMiddleware(); // saga 미들웨어 생성
 

@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 
-import BluePage from './pages/BluePage';
 import Menu from './components/Menu';
+import BluePage from './pages/BluePage';
 import RedPage from './pages/RedPages';
 import UsersPage from './pages/UsersPage';
 

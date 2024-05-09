@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Preloader } from '../lib/PreloadContext';
-import Users from '../components/Users';
-import { getUsers } from '../modules/users';
 import { useEffect } from 'react';
+import Users from '../components/Users';
+import { Preloader } from '../lib/PreloadContext';
+import { getUsers } from '../modules/users';
 
 const UsersContainer = () => {
 	const users = useSelector((state) => state.users.users);
