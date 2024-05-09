@@ -56,7 +56,8 @@ function* getUserSaga(action) {
 }
 
 export function* usersSaga() {
-	// GET_USER액션이 디스패치 될 때마다 getUserSaga를 실행
+	// redux-saga에서 비동기 작업을 처리하는 방법
+	// GET_USER 액션이 디스패치 되면, getUserSaga를 실행
 	yield takeEvery(GET_USER, getUserSaga);
 }
 
@@ -104,6 +105,40 @@ function users(state = initialState, action) {
 				error: {
 					...state.error,
 					users: action.payload,
+				},
+			};
+
+		case GET_USER:
+			return {
+				...state,
+				loading: {
+					...state.loading,
+					user: true,
+				},
+				error: {
+					...state.error,
+					user: null,
+				},
+			};
+		case GET_USER_SUCCESS:
+			return {
+				...state,
+				user: action.payload,
+				loading: {
+					...state.loading,
+					user: false,
+				},
+			};
+		case GET_USER_FAILURE:
+			return {
+				...state,
+				loading: {
+					...state.loading,
+					user: false,
+				},
+				error: {
+					...state.error,
+					user: action.payload,
 				},
 			};
 
