@@ -1,14 +1,14 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter } from "react-router-dom";
-import { configureStore } from "@reduxjs/toolkit";
-import { thunk } from "redux-thunk";
-import rootReducer, { rootSaga } from "./modules";
-import { Provider } from "react-redux";
-import createSagaMiddleware from "redux-saga";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from 'react-router-dom';
+import { configureStore } from '@reduxjs/toolkit';
+import { thunk } from 'redux-thunk';
+import rootReducer, { rootSaga } from './modules';
+import { Provider } from 'react-redux';
+import createSagaMiddleware from 'redux-saga';
 
 const sagaMiddleware = createSagaMiddleware(); // saga 미들웨어 생성
 
@@ -20,12 +20,12 @@ const store = configureStore({
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware().concat(thunk, sagaMiddleware),
 	preloadedState,
-	devTools: process.env.NODE_ENV !== "production",
+	devTools: process.env.NODE_ENV !== 'production',
 });
 
 sagaMiddleware.run(rootSaga); // saga 미들웨어 실행
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 	<Provider store={store}>
 		<BrowserRouter>

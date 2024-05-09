@@ -1,4 +1,4 @@
-import Red from "../components/Red";
+import Red from '../components/Red';
 
 const RedPages = () => {
 	return <Red />;

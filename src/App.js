@@ -1,9 +1,9 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from 'react-router-dom';
 
-import BluePage from "./pages/BluePage";
-import Menu from "./components/Menu";
-import RedPage from "./pages/RedPages";
-import UsersPage from "./pages/UsersPage";
+import BluePage from './pages/BluePage';
+import Menu from './components/Menu';
+import RedPage from './pages/RedPages';
+import UsersPage from './pages/UsersPage';
 
 const App = () => {
 	return (

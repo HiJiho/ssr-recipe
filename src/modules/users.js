@@ -1,14 +1,14 @@
-import axios from "axios";
-import { call, put, takeEvery } from "redux-saga/effects";
+import axios from 'axios';
+import { call, put, takeEvery } from 'redux-saga/effects';
 
 // 액션 타입
-const GET_USERS_PENDING = "users/GET_USERS_PENDING";
-const GET_USERS_SUCCESS = "users/GET_USERS_SUCCESS";
-const GET_USERS_FAILURE = "users/GET_USERS_FAILURE";
+const GET_USERS_PENDING = 'users/GET_USERS_PENDING';
+const GET_USERS_SUCCESS = 'users/GET_USERS_SUCCESS';
+const GET_USERS_FAILURE = 'users/GET_USERS_FAILURE';
 // redux-saga를 위한 액션 타입
-const GET_USER = "users/GET_USER";
-const GET_USER_SUCCESS = "users/GET_USER_SUCCESS";
-const GET_USER_FAILURE = "users/GET_USER_FAILURE";
+const GET_USER = 'users/GET_USER';
+const GET_USER_SUCCESS = 'users/GET_USER_SUCCESS';
+const GET_USER_FAILURE = 'users/GET_USER_FAILURE';
 
 // 액션 생성 함수
 const getUsersPending = () => ({ type: GET_USERS_PENDING });
@@ -32,7 +32,7 @@ export const getUsers = () => async (dispatch) => {
 	try {
 		dispatch(getUsersPending());
 		const response = await axios.get(
-			"https://jsonplaceholder.typicode.com/users",
+			'https://jsonplaceholder.typicode.com/users',
 		);
 		dispatch(getUsersSuccess(response));
 	} catch (e) {
